@@ -16,11 +16,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     wizualizacja.cpp \
     symulacja.cpp \
-    kulka.cpp
+    kulka.cpp \
+    podstawka.cpp
 
 HEADERS  += mainwindow.h \
     wizualizacja.h \
     symulacja.h \
-    kulka.h
+    kulka.h \
+    podstawka.h
 
 FORMS    += mainwindow.ui

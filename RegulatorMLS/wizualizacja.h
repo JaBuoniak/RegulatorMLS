@@ -5,6 +5,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <kulka.h>
+#include <podstawka.h>
 
 class Wizualizacja : public QGraphicsScene
 {
@@ -16,11 +17,12 @@ public:
 private:
     //wybór kulki: 0 - żadna, 1 - mała, 2 - średnia, 3 - duża
     int nrKulki;
-    int srednica;
-    int pozycja;
+    qreal srednica;
+    qreal pozycja;
 
     QPainter *painter;
     Kulka *kulka;
+    Podstawka *podstawka;
 
 
 public slots:

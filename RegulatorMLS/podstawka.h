@@ -1,25 +1,22 @@
-#ifndef KULKA_H
-#define KULKA_H
+#ifndef PODSTAWKA_H
+#define PODSTAWKA_H
 
 #include <QGraphicsItem>
 #include <QWidget>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
-class Kulka : public QGraphicsItem
+class Podstawka : public QGraphicsItem
 {
-
-
-
 public:
+    Podstawka();
+
     QRectF boundingRect() const{
-        return QRectF(-150, 0, 300, 300);
+        return QRectF(-50, 210, 100, 100);
     }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
 
-    Kulka();
 };
 
-#endif // KULKA_H
-
+#endif // PODSTAWKA_H

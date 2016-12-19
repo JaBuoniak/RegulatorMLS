@@ -19,7 +19,9 @@ void Symulacja::initialize(QPushButton *startStopButton, QTimer *timer)
     sTimer = timer;
 
     sTimer->setTimerType(Qt::PreciseTimer);
-    sTimer->setInterval(1);
+    sTimer->setInterval(1000);
+
+    wartoscZadana = 0;
 
     emit PsliderChanged(parametrP*0.1);
     emit IsliderChanged(parametrI*0.1);
@@ -105,6 +107,28 @@ void Symulacja::setSimulation(){
         sButton->setText(text);
         emit startSimulation(0);
         emit wybierzKulke(false);
+        switch (kulka)
+        {
+        case 1:
+            pozycja = 18;
+        break;
+
+        case 2:
+            pozycja = 25;
+        break;
+
+        case 3:
+            pozycja = 20;
+        break;
+
+        default:
+            pozycja = 0;
+        }
+
+        emit pozycjaChanged(pozycja);
+
+        poprzedniaPozycja = pozycja;
+        calkowanie = 0;
     }
     else
     {
@@ -123,8 +147,28 @@ void Symulacja::stepSimulation(){
     {
         ++licznik;
         emit simulationChanged(licznik);
+
         /* Obliczenia symulacji */
-        emit kulkaPositionChanged(wartoscZadana);
+        double uchyb = pozycja - wartoscZadana;
+        double roznica = pozycja - poprzedniaPozycja;
+        poprzedniaPozycja = pozycja;
+
+
+        sterowanie = 0.1 * (0.1 * parametrP * uchyb + 0.1 * parametrI * calkowanie + 0.01 * parametrD * roznica);
+        if(sterowanie > 50)
+            sterowanie = 50;
+
+        pozycja = pozycja + sterowanie / pozycja - 3;
+
+        calkowanie = calkowanie + uchyb;
+        szybkosc = pozycja - poprzedniaPozycja;
+        prad = sterowanie * 3 - 10;
+
+        emit pozycjaChanged(pozycja);
+        emit pozycjaChanged(QString::number(pozycja));
+        emit szybkoscChanged(QString::number(szybkosc));
+        emit sterowanieChanged(QString::number(sterowanie));
+        emit pradChanged(QString::number(prad));
     }
     if(licznik >= czas)
         emit setStan(false);

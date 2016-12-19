@@ -15,7 +15,14 @@ private:
     int licznik;
     int czas;
     int kulka;
+
     double wartoscZadana;
+    double pozycja;
+    double szybkosc;
+    double sterowanie;
+    double prad;
+    double poprzedniaPozycja;
+    double calkowanie;
 
     int parametrP;
     int parametrI;
@@ -64,7 +71,12 @@ signals:
     void startSimulation(int);
     void stopSimulation(int);
     void simulationChanged(int);
-    void kulkaPositionChanged(double);
+
+    void pozycjaChanged(double);
+    void pozycjaChanged(QString);
+    void szybkoscChanged(QString);
+    void sterowanieChanged(QString);
+    void pradChanged(QString);
 
     void PvalueChanged(int);
     void IvalueChanged(int);

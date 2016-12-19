@@ -63,7 +63,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->doubleSpinBoxWartoscZadana, SIGNAL(valueChanged(double)), simulation, SLOT(setWartoscZadana(double)));
 
     /* Wizualizacja */
-    QObject::connect(simulation, SIGNAL(kulkaPositionChanged(double)), scene, SLOT(setKulkaPosition(double)));
+    QObject::connect(simulation, SIGNAL(pozycjaChanged(double)), scene, SLOT(setKulkaPosition(double)));
+    QObject::connect(simulation, SIGNAL(pozycjaChanged(QString)), ui->lineEditPozycja, SLOT(setText(QString)));
+    QObject::connect(simulation, SIGNAL(szybkoscChanged(QString)), ui->lineEditSzybkosc, SLOT(setText(QString)));
+    QObject::connect(simulation, SIGNAL(sterowanieChanged(QString)), ui->lineEditSterowanie, SLOT(setText(QString)));
+    QObject::connect(simulation, SIGNAL(pradChanged(QString)), ui->lineEditPrad, SLOT(setText(QString)));
 
     /* Inicjalizacja symulacji */
     simulation->initialize(ui->pushButtonStartStopSymulacji, timer);
