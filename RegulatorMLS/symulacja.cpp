@@ -28,6 +28,7 @@ void Symulacja::initialize(QPushButton *startStopButton, QTimer *timer)
     emit IvalueChanged(parametrI);
     emit DvalueChanged(parametrD);
     emit wybierzKulke(false);
+    emit kulkaSelected(false);
 
 }
 
@@ -68,16 +69,19 @@ void Symulacja::setParametrD(double wartosc){
 void Symulacja::setMalaKulka(){
     kulka = 1;
     emit kulkaChanged(kulka);
+    emit kulkaSelected(true);
 }
 
 void Symulacja::setSredniaKulka(){
     kulka = 2;
     emit kulkaChanged(kulka);
+    emit kulkaSelected(true);
 }
 
 void Symulacja::setDuzaKulka(){
     kulka = 3;
     emit kulkaChanged(kulka);
+    emit kulkaSelected(true);
 }
 
 /* Zmiana stanu - rozpoczęcie / zakończenie symulacji */
@@ -118,7 +122,9 @@ void Symulacja::stepSimulation(){
     if(stan)
     {
         ++licznik;
-        simulationChanged(licznik);
+        emit simulationChanged(licznik);
+        /* Obliczenia symulacji */
+        emit kulkaPositionChanged(wartoscZadana);
     }
     if(licznik >= czas)
         emit setStan(false);
@@ -128,4 +134,10 @@ void Symulacja::stepSimulation(){
 void Symulacja::setCzas(int wartosc){
     czas = wartosc * 1000;
     emit czasChanged(czas);
+}
+
+/* Zmiana wartości zadanej */
+void Symulacja::setWartoscZadana(double wartosc){
+    wartoscZadana = wartosc;
+
 }

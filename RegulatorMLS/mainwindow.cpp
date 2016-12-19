@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     scene = new Wizualizacja();
     ui->graphicsViewWizualizacja->setScene(scene);
+    ui->graphicsViewWizualizacja->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsViewWizualizacja->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff );
 
     timer = new QTimer();
 
@@ -39,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->radioButtonSredniaKulka, SIGNAL(toggled(bool)), simulation, SLOT(setSredniaKulka()));
     QObject::connect(ui->radioButtonDuzaKulka, SIGNAL(toggled(bool)), simulation, SLOT(setDuzaKulka()));
     QObject::connect(simulation, SIGNAL(kulkaChanged(int)), scene, SLOT(setKulka(int)));
-
+    QObject::connect(simulation, SIGNAL(kulkaSelected(bool)), scene, SLOT(setKulkaVisible(bool)));
 
     /* Czas symulacji */
     QObject::connect(ui->spinBoxCzasSymulacji, SIGNAL(valueChanged(int)), simulation, SLOT(setCzas(int)));
@@ -50,8 +52,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(simulation, SIGNAL(stanChanged(int)), simulation, SLOT(setSimulation()));
     QObject::connect(simulation, SIGNAL(wybierzKulke(bool)), ui->labelUwaga, SLOT(setVisible(bool)));
 
-
-
     /* Przebieg symulacji */
     QObject::connect(simulation, SIGNAL(startSimulation(int)), timer, SLOT(start()));
     QObject::connect(timer, SIGNAL(timeout()), simulation, SLOT(stepSimulation()));
@@ -60,6 +60,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(simulation, SIGNAL(startSimulation(int)), ui->progressBar, SLOT(setValue(int)));
     QObject::connect(simulation, SIGNAL(stopSimulation(int)), ui->progressBar, SLOT(setValue(int)));
 
+    QObject::connect(ui->doubleSpinBoxWartoscZadana, SIGNAL(valueChanged(double)), simulation, SLOT(setWartoscZadana(double)));
+
+    /* Wizualizacja */
+    QObject::connect(simulation, SIGNAL(kulkaPositionChanged(double)), scene, SLOT(setKulkaPosition(double)));
+
+    /* Inicjalizacja symulacji */
     simulation->initialize(ui->pushButtonStartStopSymulacji, timer);
 }
 

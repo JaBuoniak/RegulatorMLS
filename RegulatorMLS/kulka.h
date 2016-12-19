@@ -13,7 +13,7 @@ class Kulka : public QGraphicsItem
 
 public:
     QRectF boundingRect() const{
-        return QRectF(-10, -10, 20, 20);
+        return QRectF(-100, 0, 200, 200);
     }
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);

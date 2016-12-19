@@ -15,6 +15,7 @@ private:
     int licznik;
     int czas;
     int kulka;
+    double wartoscZadana;
 
     int parametrP;
     int parametrI;
@@ -47,11 +48,9 @@ public slots:
 
     void setSimulation();
     void stepSimulation();
-   // void setStan(bool);
 
     void setCzas(int);
-/*    void incrementLicznik(int);
-*/
+    void setWartoscZadana(double);
 
 
 signals:
@@ -60,11 +59,12 @@ signals:
     void czasChanged(int);
     void kulkaChanged(int);
     void wybierzKulke(bool);
+    void kulkaSelected(bool);
 
     void startSimulation(int);
     void stopSimulation(int);
     void simulationChanged(int);
-
+    void kulkaPositionChanged(double);
 
     void PvalueChanged(int);
     void IvalueChanged(int);

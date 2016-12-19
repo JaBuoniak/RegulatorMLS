@@ -25,6 +25,8 @@ private:
 
 public slots:
     void setKulka(int);
+    void setKulkaVisible(bool);
+    void setKulkaPosition(double);
 
 signals:
     void grafix();

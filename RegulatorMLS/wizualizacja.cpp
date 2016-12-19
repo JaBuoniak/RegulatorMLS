@@ -7,11 +7,16 @@ Wizualizacja::Wizualizacja(QGraphicsScene *parent)
     srednica = 0;
     pozycja = 0;
 
+    QPen emPen = QPen(Qt::blue);
+    QBrush emBrush = QBrush(Qt::darkYellow);
+    QPen podstawkaPen = QPen(Qt::black);
+    QBrush podstawkaBrush = QBrush(Qt::darkGray);
+
+    addRect(-100, -100, 200, 100, emPen, emBrush);
+
     kulka = new Kulka();
-    this->addItem(kulka);
-
-    //kulka->setVisible(false);
-
+    addItem(kulka);
+    addRect(-50, 200, 100, 100, podstawkaPen, podstawkaBrush);
 }
 
 void Wizualizacja::setKulka(int numer){
@@ -34,5 +39,17 @@ void Wizualizacja::setKulka(int numer){
             srednica = 0;
     }
 
-    kulka->setScale((qreal)srednica / 10);
+    kulka->setScale((qreal)srednica * 0.01);
+}
+
+void Wizualizacja::setKulkaVisible(bool wartosc)
+{
+    kulka->setVisible(wartosc);
+    kulka->advance(1);
+}
+
+void Wizualizacja::setKulkaPosition(double wartosc)
+{
+    pozycja = wartosc * 10;
+    kulka->setPos(0, pozycja);
 }
