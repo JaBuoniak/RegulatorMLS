@@ -19,7 +19,7 @@ void Symulacja::initialize(QPushButton *startStopButton, QTimer *timer)
     sTimer = timer;
 
     sTimer->setTimerType(Qt::PreciseTimer);
-    sTimer->setInterval(1000);
+    sTimer->setInterval(100);
 
     wartoscZadana = 0;
 
@@ -125,8 +125,14 @@ void Symulacja::setSimulation(){
             pozycja = 0;
         }
 
+        szybkosc = 0;
+        sterowanie = 0;
+        prad = 0;
         emit pozycjaChanged(pozycja);
-
+        emit pozycjaChanged(QString::number(pozycja));
+        emit szybkoscChanged(QString::number(szybkosc));
+        emit sterowanieChanged(QString::number(sterowanie));
+        emit pradChanged(QString::number(prad));
         poprzedniaPozycja = pozycja;
         calkowanie = 0;
     }
@@ -149,20 +155,25 @@ void Symulacja::stepSimulation(){
         emit simulationChanged(licznik);
 
         /* Obliczenia symulacji */
-        double uchyb = pozycja - wartoscZadana;
-        double roznica = pozycja - poprzedniaPozycja;
+        double grawitacja = 1.5 - (double)parametrI/80;
+        double zaburzenia = (double)(qrand()%20 - 10) / ((double)parametrD);
+        double uchyb = wartoscZadana - pozycja;
         poprzedniaPozycja = pozycja;
 
+        if(uchyb < 0)
+        {
+            sterowanie = -((double)parametrD*32/100) * uchyb / pozycja;
+            if(sterowanie > 5)
+                sterowanie = 5;
+        }
+        else
+            sterowanie = 0;
+        pozycja = pozycja - ((double)parametrP / 300) * sterowanie + grawitacja + zaburzenia;
+        if(pozycja <= 0)
+            pozycja = 0.1;
 
-        sterowanie = 0.1 * (0.1 * parametrP * uchyb + 0.1 * parametrI * calkowanie + 0.01 * parametrD * roznica);
-        if(sterowanie > 50)
-            sterowanie = 50;
-
-        pozycja = pozycja + sterowanie / pozycja - 3;
-
-        calkowanie = calkowanie + uchyb;
         szybkosc = pozycja - poprzedniaPozycja;
-        prad = sterowanie * 3 - 10;
+        prad = fabs(-sterowanie) * 3;
 
         emit pozycjaChanged(pozycja);
         emit pozycjaChanged(QString::number(pozycja));

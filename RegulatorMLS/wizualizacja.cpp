@@ -64,6 +64,6 @@ void Wizualizacja::setKulkaVisible(bool wartosc)
 
 void Wizualizacja::setKulkaPosition(double wartosc)
 {
-    pozycja = wartosc * 30;
-    //kulka->setPos(0, pozycja);
+    pozycja = wartosc * 3;
+    kulka->setPos(0, pozycja);
 }

@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     /* Start / Stop symulacji */
     QObject::connect(ui->pushButtonStartStopSymulacji, SIGNAL(clicked(bool)), simulation, SLOT(changeStan()));
     QObject::connect(simulation, SIGNAL(stanChanged(int)), simulation, SLOT(setSimulation()));
+    QObject::connect(simulation, SIGNAL(kulkaChanged(int)), simulation, SLOT(setSimulation()));
     QObject::connect(simulation, SIGNAL(wybierzKulke(bool)), ui->labelUwaga, SLOT(setVisible(bool)));
 
     /* Przebieg symulacji */
