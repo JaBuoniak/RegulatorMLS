@@ -70,19 +70,25 @@ void Symulacja::setParametrD(double wartosc){
 /* Wybór kulki - tylko jedna może być wybrana (pola odznaczają się automatycznie)*/
 void Symulacja::setMalaKulka(){
     kulka = 1;
+    pozycja = 18;
     emit kulkaChanged(kulka);
+    emit pozycjaChanged(pozycja);
     emit kulkaSelected(true);
 }
 
 void Symulacja::setSredniaKulka(){
     kulka = 2;
+    pozycja = 25;
     emit kulkaChanged(kulka);
+    emit pozycjaChanged(pozycja);
     emit kulkaSelected(true);
 }
 
 void Symulacja::setDuzaKulka(){
     kulka = 3;
+    pozycja = 20;
     emit kulkaChanged(kulka);
+    emit pozycjaChanged(pozycja);
     emit kulkaSelected(true);
 }
 
@@ -107,34 +113,14 @@ void Symulacja::setSimulation(){
         sButton->setText(text);
         emit startSimulation(0);
         emit wybierzKulke(false);
-        switch (kulka)
-        {
-        case 1:
-            pozycja = 18;
-        break;
-
-        case 2:
-            pozycja = 25;
-        break;
-
-        case 3:
-            pozycja = 20;
-        break;
-
-        default:
-            pozycja = 0;
-        }
 
         szybkosc = 0;
         sterowanie = 0;
         prad = 0;
-        emit pozycjaChanged(pozycja);
-        emit pozycjaChanged(QString::number(pozycja));
-        emit szybkoscChanged(QString::number(szybkosc));
-        emit sterowanieChanged(QString::number(sterowanie));
-        emit pradChanged(QString::number(prad));
+
         poprzedniaPozycja = pozycja;
         calkowanie = 0;
+
     }
     else
     {
