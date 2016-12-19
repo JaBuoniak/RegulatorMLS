@@ -60,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(simulation, SIGNAL(startSimulation(int)), ui->progressBar, SLOT(setValue(int)));
     QObject::connect(simulation, SIGNAL(stopSimulation(int)), ui->progressBar, SLOT(setValue(int)));
+    QObject::connect(simulation, SIGNAL(stopSimulation(bool)), simulation, SLOT(setStan(bool)));
 
     QObject::connect(ui->doubleSpinBoxWartoscZadana, SIGNAL(valueChanged(double)), simulation, SLOT(setWartoscZadana(double)));
 

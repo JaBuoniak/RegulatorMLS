@@ -70,6 +70,7 @@ signals:
 
     void startSimulation(int);
     void stopSimulation(int);
+    void stopSimulation(bool);
     void simulationChanged(int);
 
     void pozycjaChanged(double);
