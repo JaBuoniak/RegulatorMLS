@@ -4,7 +4,7 @@ Symulacja::Symulacja() : QObject(){
 
     stan = false;
     licznik = 0;
-    czas = 600;
+    czas = 60000;
     kulka = 0;
 
     parametrP = 300;
@@ -31,7 +31,6 @@ void Symulacja::initialize(QPushButton *startStopButton, QTimer *timer)
     emit DvalueChanged(parametrD);
     emit wybierzKulke(false);
     emit kulkaSelected(false);
-    emit czasChanged(czas);
 
 }
 
@@ -75,7 +74,6 @@ void Symulacja::setMalaKulka(){
     emit kulkaChanged(kulka);
     emit pozycjaChanged(pozycja);
     emit kulkaSelected(true);
-    emit stopSimulation(false);
 }
 
 void Symulacja::setSredniaKulka(){
@@ -84,7 +82,6 @@ void Symulacja::setSredniaKulka(){
     emit kulkaChanged(kulka);
     emit pozycjaChanged(pozycja);
     emit kulkaSelected(true);
-    emit stopSimulation(false);
 }
 
 void Symulacja::setDuzaKulka(){
@@ -93,7 +90,6 @@ void Symulacja::setDuzaKulka(){
     emit kulkaChanged(kulka);
     emit pozycjaChanged(pozycja);
     emit kulkaSelected(true);
-    emit stopSimulation(false);
 }
 
 /* Zmiana stanu - rozpoczęcie / zakończenie symulacji */
