@@ -1,12 +1,10 @@
 #include <symulacja.h>
 
-#define FPS 10
-
 Symulacja::Symulacja() : QObject(){
 
     stan = false;
     licznik = 0;
-    czas = 60 * FPS;
+    czas = 600;
     kulka = 0;
 
     parametrP = 300;
@@ -21,7 +19,7 @@ void Symulacja::initialize(QPushButton *startStopButton, QTimer *timer)
     sTimer = timer;
 
     sTimer->setTimerType(Qt::PreciseTimer);
-    sTimer->setInterval(1000 / FPS);
+    sTimer->setInterval(100);
 
     wartoscZadana = 0;
 
@@ -179,8 +177,8 @@ void Symulacja::stepSimulation(){
 
 /* Ustawienie czasu trwania symulacji */
 void Symulacja::setCzas(int wartosc){
-    czas = wartosc * 1000 / FPS;
-    emit czasChanged(czas / FPS);
+    czas = wartosc * 1000;
+    emit czasChanged(czas);
 }
 
 /* Zmiana wartości zadanej */
